@@ -1,0 +1,17 @@
+.ui.two.column.centered.grid.container
+  .column
+    h2 Log in
+    = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "ui form"}) do |f|
+      .field
+        = f.label :email
+        = f.text_field :email
+      .field
+        = f.label :password
+        = f.password_field :password
+      - if devise_mapping.rememberable?
+        .ui.checkbox
+          = f.check_box :remember_me
+          = f.label :remember_me
+      .actions
+        button.ui.button type="submit" Login
+      = render "devise/shared/links"
