@@ -1,12 +1,14 @@
-p 
-- if current_user
- = "welcome    "  
- = current_user.email
- = "               "
- = link_to "Articles", articles_path, method: :get
- = "               "
- = link_to "Source", sources_path, method: :get
- = "               "
- = link_to "MyArticles", '/articles/only_like', method: :get
- = "               "
- = link_to "Signout", destroy_user_session_path, method: :delete
+.ui.four.column.left.grid.container
+  .ui.secondary.menu
+    - if current_user
+      p 
+        Welcome
+      a.item.active  href="#{articles_path}"
+        | Articles
+      a.item  href="#{sources_path}"
+        | Source
+      a.item  href="/articles/only_like"
+        | MyArticles
+      .item
+        a.ui.item  href="logout"
+          | Logout

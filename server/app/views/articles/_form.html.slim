@@ -1,24 +1,27 @@
-ul
+.ui.two.column.centered.grid.container
   - article.errors.full_messages.each do |message|
-    li
+    .ui.one.left.aligned.row
       = message
-
-= form_for article do |f|
-  p
-    = f.label :title
-    = f.text_field :title
-  
-  p
-    = f.label :link
-    = f.text_field :link
-  
-  p
-    = f.label :content
-    = f.text_area :content
-  
-  p
-    = f.label :source
-    = f.select :source_id, options_from_collection_for_select(sources, :id, :name), prompt: true
-  
-  p
-    = f.submit "Submit"
+.ui.grid
+  .four.wide.column
+  .eight.wide.column
+    = form_for(article, html: {class: "ui form"})  do |f|
+      .field
+        = f.label :title
+        = f.text_field :title
+      
+      .field
+        = f.label :link
+        = f.text_field :link
+      
+      .field
+        = f.label :content
+        = f.text_area :content
+      
+      .middle.aligned.selection.list
+        h5
+          = f.label :source
+        = f.select :source_id, options_from_collection_for_select(sources, :id, :name), prompt: true
+      
+      .action
+        = f.submit "Submit"

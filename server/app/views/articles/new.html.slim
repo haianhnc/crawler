@@ -2,6 +2,7 @@ ruby:
   article = @data[:article]
   sources = @data[:sources]
 
-h1 Add new article
+.ui.one.column.centered.grid.container
+  h1 Add new article
 
 = render "form", article: article, sources: sources, type: :new
