@@ -1,82 +1,39 @@
 class LikedArticlesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_source, only: [:edit, :update, :show, :destroy]
+  before_action :set_like_article, only: [:destroy]
 
-  def new
-    @like_article = LikedArticle.new
+  def index
+    @liked_articles = LikedArticle.where(user_id: current_user.id)
   end
 
   def create
-    binding.pry
-    @like_article = LikedArticle.create(like_articles_params)
+    user_id = current_user.id
+    article_id = params[:article_id]
+    @like_article = LikedArticle.create(user_id: user_id, article_id: article_id)
     if @like_article.save
       flash[:notice] = "Create succeed"
-      respond_to do |format|
-        format.html {redirect_to :back, notice: "Liked!"}
-        format.js
-      end
+      @article = Article.find(article_id)
+      redirect_to @article
     else
       @like_articles = LikedArticle.all
-      render :new
-    end
-  end
-
-  def index
-    # @like_articles = LikedArticle.all
-    if params[:tag] == "like"
-      self.make_like params[:user_id], params[:article_id]
-    else
-      self.make_dislike params[:user_id], params[:article_id]
-    end
-
-    redirect_to article_path params[:article_id]
-  end
-
-  def show
-  end
-
-  def edit
-    @like_article= LikedArticle.find(params[:id])
-  end
-
-  def update
-    if @like_article.update(like_articles_params)
-      flash[:notice] = "Update succeed"
-      redirect_to articles_path(@like_articles.article_id)
-    else
-      redirect_to articles_path
+      redirect_to
     end
   end
 
   def destroy
-    @like_article = LikedArticle.where(user_id: params[:user_id], article_id: params[:article_id])
+    @like_article.destroy
     if @like_article.destroyed?
       flash[:notice] = "Delete succeed"
     else
       flash[:alert] = "Delete fail"
     end
-
-    redirect_to like_article_path
+    redirect_to article_path(@like_article.article)
   end
 
+  private
 
-
-  def make_like user_id, article_id
-    @like_article = LikedArticle.new
-    @like_article.user_id = user_id
-    @like_article.article_id = article_id
-    @like_article.save
-  end
-
-  def make_dislike user_id, article_id
-    LikedArticle.where(user_id: user_id, article_id: article_id).each do |x|
-      x.delete
-    end
-  end
-
-private
   def set_like_article
-    @like_article = like_article.find(params[:id])
+    @like_article = LikedArticle.find_by(article_id: params[:id].to_i, user_id: current_user.id)
   end
 
 end

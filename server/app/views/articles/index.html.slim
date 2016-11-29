@@ -1,9 +1,27 @@
 - if @articles.blank?
-  p There are not any artilce currently in the system.
+  .ui.vertically.divided.grid
+    .four.column.row
+      .column
+      .eight.wide.column
+        p 
+          h4 There are not any artilce currently in the system.
+      .column
 - else
-  p These are the current articles in our system
-  ul#articles
-    - @articles.each do |c|
-      li
-        = link_to c.title, {:action => 'show', :id => c.id}
-p= link_to "Add new article",  :action => "new"
+  .ui.vertically.divided.grid
+    .four.wide.column
+    .four.wide.column
+      .p 
+        h4 These are the current articles in our system
+  - @articles.each_with_index do |c,index|
+    .ui.four.column.grid
+      .row
+        .three.wide.column
+        .one.wide.column
+          = index
+        .eight.wide.column
+          = link_to c.title, {:action => 'show', :id => c.id}
+        .four.wide.column
+        
+.ui.centered.grid
+  h2
+    = link_to "Add new article",  :action => "new"

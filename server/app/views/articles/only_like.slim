@@ -1,9 +1,16 @@
 - if @articles.blank?
-  p You are not liked any artilce.
+  .ui.grid
+    .four.wide.column
+    .eight.wide.column
+      h4 You are not liked any artilce.
 - else
-  p You liked
-  ul#articles
-    - @articles.each do |c|
-      li
-        = link_to c.title, {:action => 'show', :id => c.id}
-p= link_to "Add new article",  :action => "new"
+  .ui.grid
+    .row
+      .four.wide.column
+      .eight.wide.column
+        h4 You liked
+    .row
+      .four.wide.column
+      .eight.wide.column
+        - @articles.each do |c|
+          = link_to c.title, {:action => 'show', :id => c.id}

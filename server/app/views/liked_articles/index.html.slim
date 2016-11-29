@@ -1,0 +1,16 @@
+- if @liked_articles.blank?
+  .ui.grid
+    .four.wide.column
+    .eight.wide.column
+      h4  You are not liked any artilce.
+- else
+  .ui.grid
+    - @liked_articles.each do |c|
+      .row
+        .four.wide.column
+        .eight.wide.column
+      .row
+        .four.wide.column
+        .eight.wide.column
+          - @article = c.article
+          = link_to @article.title, article_path(id: @article.id)

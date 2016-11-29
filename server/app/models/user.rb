@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: {maximum: 255}
 
   def isLiked? article_id
-    aa = LikedArticle.where(user_id: self, article_id: article_id)
+    aa = LikedArticle.where(user_id: self.id, article_id: article_id)
     aa.count == 0
   end
 

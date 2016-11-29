@@ -3,12 +3,12 @@
     - if current_user
       p 
         Welcome
-      a.item.active  href="#{articles_path}"
-        | Articles
-      a.item  href="#{sources_path}"
-        | Source
-      a.item  href="/articles/only_like"
-        | MyArticles
+      .item.active
+        = link_to "Articles", articles_path
       .item
-        a.ui.item  href="logout"
-          | Logout
+        = link_to "Source", sources_path
+      .item
+        = link_to "My Articles", liked_articles_path
+      .item
+        / a.ui.item  href="logout" data-method="delete"
+        = link_to "Logout", destroy_user_session_path, method: :delete

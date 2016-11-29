@@ -1,12 +1,20 @@
-h1
-p
-  = @source.name
-
-p
-  = link_to "#{@source.source_link}", "#{@source.id}"
-
-p
-  = link_to "Edit", edit_source_path(@source)
-
-p
-  = link_to 'Back', sources_path
+.ui.vertically.devided.grid
+  .four.wide.column
+  .eight.wide.column
+    .ui.relaxed.grid
+      .four.column.row
+        .column
+          h3 Source Name :
+        .column
+          h3 = @source.name
+      .four.column.row
+        .column
+          h3 Source link :
+        .column
+          h3 = link_to "#{@source.source_link}", "#{@source.id}"
+      .six.column.row
+        .two.column
+        .two.column
+          h3 = link_to "Edit", edit_source_path(@source)
+        .column
+          h3 = link_to 'Back', sources_path
