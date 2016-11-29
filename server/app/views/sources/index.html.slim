@@ -1,9 +1,23 @@
 - if @sources.blank?
-  p There are not any source currently in the system.
+  .ui.vertically.divided.grid
+    .four.column.row
+      .column
+      .eight.wide.column
+        p 
+          h4 There are not any source currently in the system.
+      .column
 - else
-  p These are the source in our system
-  ul#sources
-    - @sources.each do |c|
-      li
+  .ui.vertically.divided.grid
+    .four.wide.column
+    .four.wide.column
+      .p 
+        h4 These are the source in our system
+  - @sources.each do |c|
+    .ui.grid
+      .four.wide.column
+      .eight.wide.column
         = link_to c.name, {:action => 'show', :id => c.id}
-p= link_to "Add new source",  :action => "new"
+      .four.wide.column
+.ui.centered.grid
+  h2
+    = link_to "Add new source",  :action => "new"

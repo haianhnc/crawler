@@ -1,23 +1,23 @@
-h1
-  = @article.title
+.ui.grid
+  .four.wide.column
+  .four.wide.column
+    h1
+      = @article.title
+    p
+      strong #{@article.content}
+    p
+      = link_to "#{@article.link}", "#{@article.link}"
 
-p
-  strong #{@article.content}
+    - if current_user.isLiked? @article
+      = link_to "Like", {controller: "liked_articles", method: "POST", tag: "like", user_id: current_user.id, article_id: @article.id}
+    - else
+      = link_to "Dislike", {controller: "liked_articles", method: "POST", tag: "dislike", user_id: current_user.id, article_id: @article.id}
 
-p
-  = link_to "#{@article.link}", "#{@article.link}"
+    p
+      = "there ares " + "#{current_user.countLiked @article}" + " users like this."
+    p
+      = link_to "Edit", edit_article_path(@article)
 
-- if current_user.isLiked? @article
-  = link_to "Like", {controller: "liked_articles", method: "POST", tag: "like", user_id: current_user.id, article_id: @article.id}
-- else
-  = link_to "Dislike", {controller: "liked_articles", method: "POST", tag: "dislike", user_id: current_user.id, article_id: @article.id}
-
-p
-  = "there ares "
-  = "#{current_user.countLiked @article}"
-  = " users like this."
-p
-  = link_to "Edit", edit_article_path(@article)
-
-p
-  = link_to 'Back', articles_path
+.ui.centered.grid    
+  h3
+    = link_to 'Back', articles_path
